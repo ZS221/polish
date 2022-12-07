@@ -1,0 +1,2 @@
+public class LoggerFactory {
+}

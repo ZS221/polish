@@ -12,6 +12,7 @@ S = Sha256
 
 Format:
 (Decryption type) (Hash type) (hash)
+Ex: 1 M 0f18fd4cf40bfb1dec646807c7fa5522 - decrypts an MD5 hash using a dictionary attack
 
 Dependencies:
 

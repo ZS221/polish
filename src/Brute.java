@@ -6,11 +6,9 @@ import java.util.Arrays;
 
 public class Brute {
         public static void main(String[] args) {
-
         }
 
-
-
+        //takes in size of password, hash, and type of hash
         public static String bruteForce(int size, String hashermasher, String type) throws NoSuchAlgorithmException {
                 int[] password = new int[size];
                 String[] finalPassword = new String[size];
@@ -18,6 +16,7 @@ public class Brute {
                         password[i] = 0;
                         finalPassword[i] = "";
                 }
+                //stores hash
                 String pass = hashermasher;
                 return computePermutations(size, password, 0, pass, type);
         }
@@ -30,11 +29,14 @@ public class Brute {
                         password[position] = i;
 
                         if (position != size - 1) {
+                                //iterates until position is equal to indexes in password array and stores lol if password found
                                 testString = computePermutations(size, password, position + 1, pass, frog);
                                 if (testString != "") {
                                         return testString;
                                 }
-                        } else if (position == size - 1) {
+                        }
+                        else if (position == size - 1) {
+                                //tries every combination possible for the size given and stores it in assemble
                                 for (int j = 0; j < size; j++) {
 
                                         switch (password[j] + 1) {
@@ -247,20 +249,13 @@ public class Brute {
                                                         assemble = assemble + "_";
                                                         break;
 
-
-
-
-
-
-
-
-
                                         }
 
                                 }
 
-
-                                //System.out.println(assemble);
+                                //based on type, hashes assemble and checks if equal to input hash
+                                //prints password and returns lol if it's a match to stop loop in Pictronimo and end brute force
+                                //makes assemble blank if not a match
                                 if (frog.equals("M")){
                                         if (MD5.getMd5(assemble).equals(pass)) {
                                                System.out.println("Password is: " + assemble);
@@ -282,21 +277,18 @@ public class Brute {
                                                 return "lol"; //replace this with: return assemble;
                                         } else {
                                                 assemble = "";
-                                        }}
-
-
-
-
+                                        }
+                                }
 
                                 if (assemble.equalsIgnoreCase(pass)) {
                                         System.out.println("Password is: " + assemble);
                                         return "lol"; //replace this with: return assemble;
-                                } else {
+                                }
+                                else {
                                         assemble = "";
                                 }
                         }
-
-
                 }
                 return "";
-        }     }
+        }
+}

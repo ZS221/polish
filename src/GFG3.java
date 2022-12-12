@@ -8,67 +8,74 @@ import java.io.*;
 import java.security.NoSuchAlgorithmException;
 
 // Main class
+// dictionary decryption
 public class GFG3
 {
     public static String frog = "M";
     public static void main(String[] args) throws Exception {}
+    //assigns frog the type of hash being used
     public static void method2 (String type){
         frog = type;
 
     }
+
     public static String method (String hash) throws IOException, NoSuchAlgorithmException {
-    // main driver method
 
+        // File path is passed as parameter
+        // stores password list
+        File file = new File("C:\\Users\\100031656\\IdeaProjects\\polish\\src\\passwords");
 
+        // Creating an object of BufferedReader class
+        // helps to go through the password list
+        BufferedReader br = new BufferedReader(new FileReader(file));
 
-            // File path is passed as parameter
-            File file = new File("C:\\Users\\100031656\\IdeaProjects\\polish\\src\\passwords");
+        //stores password from list
+        String st = "";
+        // stores hash
+        String ts = "invalid type";
+        int i = 0;
+        int j = 0;
 
-            // Creating an object of BufferedReader class
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        //put line from password file in String
+        // stores a password from list into st and loops through list until password is found
+        while ((st = br.readLine()) != null) {
 
-            // Declaring a string variable
-            String st = "";
-            String ts = "invalid type";
-            int i = 0;
-            int j = 0;
+            // if hash type is MD5, put the password from the list into MD5 hasher and store into ts
+            if (frog.equals("M")){
+                ts=(MD5.getMd5(st));
+            }
 
-            //put line from password file in String
-            while ((st = br.readLine()) != null) {
-                if (frog.equals("M")){
-                    ts=(MD5.getMd5(st));
-                } else if(frog.equals("S")){
-                    try {
-                        ts=(GFG2.toHexString(GFG2.getSHA(st)));
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-
-                    }
-                } else if(frog.equals("B")){
-                    BCrypt.Result res = BCrypt.verifyer().verify(st.toCharArray(), hash);
-                    if (res.verified==true) {
-                        return st;
-                    }
-                    //else System.out.println("It does not match");
-
-                    //ts = BCrypt.hashpw(st, BCrypt.gensalt());
-                }
-                //if (i == j){
-                                                            //System.out.println(i);
-                //j+=1000;}
-                //ts + "            " +
-                        // Print the string
-                i++;
-
-                if (ts.equals(hash)) {
-                    return(st);
+            // if hash type is MD5, put the password from the list into SHA hasher and store into ts
+            else if(frog.equals("S")){
+                try {
+                    ts=(GFG2.toHexString(GFG2.getSHA(st)));
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
                 }
             }
 
-            return("not found");
+            // if hash type is BCrypt
+            else if(frog.equals("B")){
+                //puts password into BCrypt hasher and verfies if hash matches with the input hash
+                BCrypt.Result res = BCrypt.verifyer().verify(st.toCharArray(), hash);
+                // if hash matches, returns the found password
+                if (res.verified==true) {
+                    return st;
+                }
+            }
 
+            i++;
+
+            //if MD5 or SHA hash matches with input hash, returns found password
+            if (ts.equals(hash)) {
+                return(st);
+            }
         }
 
+        //if password not found
+        return("not found");
+
+        }
     }
 
 

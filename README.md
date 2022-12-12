@@ -20,3 +20,4 @@ Dependencies:
 
 - GitHub
 - GitBash
+- at.favre.lib:bcrypt:0.9.0

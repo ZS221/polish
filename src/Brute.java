@@ -1,5 +1,6 @@
-import org.mindrot.BCrypt;
 
+
+import at.favre.lib.crypto.bcrypt.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
@@ -10,7 +11,7 @@ public class Brute {
 
 
 
-        public static String bruteForce(int size, String hashermasher, String type) {
+        public static String bruteForce(int size, String hashermasher, String type) throws NoSuchAlgorithmException {
                 int[] password = new int[size];
                 String[] finalPassword = new String[size];
                 for (int i = 0; i < size; i++) {
@@ -21,11 +22,11 @@ public class Brute {
                 return computePermutations(size, password, 0, pass, type);
         }
 
-        private static String computePermutations(int size, int[] password, int position, String pass, String frog) {
+        private static String computePermutations(int size, int[] password, int position, String pass, String frog) throws NoSuchAlgorithmException {
                 String testString = "";
                 String assemble = "";
 
-                for (int i = 0; i < 37; i++) {
+                for (int i = 0; i < 69; i++) {
                         password[position] = i;
 
                         if (position != size - 1) {
@@ -149,31 +150,136 @@ public class Brute {
                                                 case 37:
                                                         assemble = assemble + " ";
                                                         break;
+                                                case 38:
+                                                        assemble = assemble + "a";
+                                                        break;
+                                                case 39:
+                                                        assemble = assemble + "b";
+                                                        break;
+                                                case 40:
+                                                        assemble = assemble + "c";
+                                                        break;
+                                                case 41:
+                                                        assemble = assemble + "d";
+                                                        break;
+                                                case 42:
+                                                        assemble = assemble + "e";
+                                                        break;
+                                                case 43:
+                                                        assemble = assemble + "f";
+                                                        break;
+                                                case 44:
+                                                        assemble = assemble + "g";
+                                                        break;
+                                                case 45:
+                                                        assemble = assemble + "h";
+                                                        break;
+                                                case 46:
+                                                        assemble = assemble + "i";
+                                                        break;
+                                                case 47:
+                                                        assemble = assemble + "j";
+                                                        break;
+                                                case 48:
+                                                        assemble = assemble + "k";
+                                                        break;
+                                                case 49:
+                                                        assemble = assemble + "l";
+                                                        break;
+                                                case 50:
+                                                        assemble = assemble + "m";
+                                                        break;
+                                                case 51:
+                                                        assemble = assemble + "n";
+                                                        break;
+                                                case 52:
+                                                        assemble = assemble + "o";
+                                                        break;
+                                                case 53:
+                                                        assemble = assemble + "p";
+                                                        break;
+                                                case 54:
+                                                        assemble = assemble + "q";
+                                                        break;
+                                                case 55:
+                                                        assemble = assemble + "r";
+                                                        break;
+                                                case 56:
+                                                        assemble = assemble + "s";
+                                                        break;
+                                                case 57:
+                                                        assemble = assemble + "t";
+                                                        break;
+                                                case 58:
+                                                        assemble = assemble + "u";
+                                                        break;
+                                                case 59:
+                                                        assemble = assemble + "v";
+                                                        break;
+                                                case 60:
+                                                        assemble = assemble + "w";
+                                                        break;
+                                                case 61:
+                                                        assemble = assemble + "x";
+                                                        break;
+                                                case 62:
+                                                        assemble = assemble + "y";
+                                                        break;
+                                                case 63:
+                                                        assemble = assemble + "z";
+                                                        break;
+                                                case 64:
+                                                        assemble = assemble + "!";
+                                                        break;
+                                                case 65:
+                                                        assemble = assemble + "@";
+                                                        break;
+                                                case 66:
+                                                        assemble = assemble + "#";
+                                                        break;
+                                                case 67:
+                                                        assemble = assemble + "?";
+                                                        break;
+                                                case 68:
+                                                        assemble = assemble + "+";
+                                                        break;
+                                                case 69:
+                                                        assemble = assemble + "_";
+                                                        break;
+
+
+
+
+
+
+
+
 
                                         }
 
                                 }
 
 
-                                System.out.println(assemble);
+                                //System.out.println(assemble);
                                 if (frog.equals("M")){
                                         if (MD5.getMd5(assemble).equals(pass)) {
-                                                System.out.println("Password is: " + assemble);
+                                               System.out.println("Password is: " + assemble);
                                                 return "lol"; //replace this with: return assemble;
                                         } else {
                                                 assemble = "";
                                         }
                                 }else if(frog.equals("S")){
-                                        if (assemble.equalsIgnoreCase(pass)) {
+                                        if (GFG2.toHexString(GFG2.getSHA(assemble)).equals(pass)) {
                                                 System.out.println("Password is: " + assemble);
-                                                return assemble; //replace this with: return assemble;
+                                                return "lol"; //replace this with: return assemble;
                                         } else {
                                                 assemble = "";
                                         }
                                 } else if(frog.equals("B")){
-                                        if (assemble.equalsIgnoreCase(pass)) {
-                                                System.out.println("Password is: " + assemble);
-                                                return assemble; //replace this with: return assemble;
+                                        BCrypt.Result res = BCrypt.verifyer().verify(pass.toCharArray(), assemble);
+                                        if (res.verified) {
+                                               System.out.println("Password is: " + assemble);
+                                                return "lol"; //replace this with: return assemble;
                                         } else {
                                                 assemble = "";
                                         }}

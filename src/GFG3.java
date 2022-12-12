@@ -3,8 +3,7 @@
 // using BufferedReader Class
 
 // Importing input output classes
-import org.mindrot.BCrypt;
-
+import at.favre.lib.crypto.bcrypt.*;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 
@@ -46,8 +45,10 @@ public class GFG3
 
                     }
                 } else if(frog.equals("B")){
-                    if (BCrypt.checkpw(st, hash))
+                    BCrypt.Result res = BCrypt.verifyer().verify(st.toCharArray(), hash);
+                    if (res.verified==true) {
                         return st;
+                    }
                     //else System.out.println("It does not match");
 
                     //ts = BCrypt.hashpw(st, BCrypt.gensalt());

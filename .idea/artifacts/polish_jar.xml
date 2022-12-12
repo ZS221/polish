@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="polish:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/polish_jar</output-path>
+    <root id="root">
+      <element id="archive" name="polish.jar">
+        <element id="module-output" name="polish" />
+      </element>
+      <element id="library" level="project" name="at.favre.lib:bcrypt:0.9.0" />
+    </root>
+  </artifact>
+</component>
